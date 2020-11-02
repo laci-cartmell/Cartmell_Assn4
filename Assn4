@@ -1,4 +1,4 @@
-#! /bin/bash/
+#! /bin/bash
 
 ### Create new file with Person, Age, and Eligiblity from a file that contains Person and Age
 # Print first 10 lines of original and the new file to STDOUT (column -t) & total of eligible voters
@@ -7,21 +7,38 @@
 # Create a new file with the coloumn Eligible?
 echo "Eligible?" > eligibility.txt
 
+# Create list of just ages
+ cut -f2 possible_voters.txt | tail -n +2 >> ages.txt
+
 # Loop through possible_voters.txt, based off of age, echo "yes" or "no" to eligibility.txt
 
 while read line
-do
-if
-	[ $line > 17 ]	
-then	echo "yes" >> eligibility.txt
+do if
+	[[ $line -gt 17 ]]
+then
+	echo "yes" >> eligibility.txt
 else
 	echo "no" >> eligibility.txt
 fi
-done < possible_voters.txt
+done < ages.txt
 
-# for indivudals with age >18, write yes to STDOUT and append that to newfile 
-# if ~>18, write no to STDOUT and append to newfile
-## needs to be in order so that we can then ad
-while [ $age > 18 ]
-do
-	if 
+
+# create eligible_voters.txt and append possible_voters.txt and eligibility.txt to it
+paste possible_voters.txt eligibility.txt >> eligible_voters.txt
+
+#Print total number of eligible voters
+echo -e "\n"
+echo -e "This is the number of eligible voters:"
+grep -c "yes" eligible_voters.txt
+echo -e "\n"
+
+# remove temporary files
+rm ages.txt
+rm eligibility.txt
+
+# Print to STDOUT first 10 lines
+echo -e "First 10 lines of Original File:\n"
+head -n10 possible_voters.txt
+echo -e "\n"
+echo -e "First 10 lines of New File:\n"
+head -n10 eligible_voters.txt
