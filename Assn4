@@ -1,0 +1,27 @@
+#! /bin/bash/
+
+### Create new file with Person, Age, and Eligiblity from a file that contains Person and Age
+# Print first 10 lines of original and the new file to STDOUT (column -t) & total of eligible voters
+# Add bash script and original data file to GitHub
+
+# Create a new file with the coloumn Eligible?
+echo "Eligible?" > eligibility.txt
+
+# Loop through possible_voters.txt, based off of age, echo "yes" or "no" to eligibility.txt
+
+while read line
+do
+if
+	[ $line > 17 ]	
+then	echo "yes" >> eligibility.txt
+else
+	echo "no" >> eligibility.txt
+fi
+done < possible_voters.txt
+
+# for indivudals with age >18, write yes to STDOUT and append that to newfile 
+# if ~>18, write no to STDOUT and append to newfile
+## needs to be in order so that we can then ad
+while [ $age > 18 ]
+do
+	if 
